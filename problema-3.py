@@ -1,45 +1,47 @@
 from random import uniform
 from time import sleep
-import requests
-import json
-import datetime
+from typing import NoReturn
+from datetime import datetime, date
+from requests import get
+from json import load, loads, dump, dumps
+
 
 """
 Simluação do faturamento mensal de uma empresa representada por 5 semanas
 """
 
 
-def create_json():
+def create_json() -> str:
     """
-    Cria um arquivo JSON para simular a data dos rendimentos da empresa.
+    Cria um arquivo JSON para simular o valor e data dos rendimentos diários da empresa.
     """
     day: dict = {}
 
-    feb_start = datetime.date(2023, 2, 1)
-    feb_end = datetime.date(2023, 2, 28)
+    feb_start: datetime = date(2023, 2, 1)
+    feb_end: datetime = date(2023, 2, 28)
 
     def month_simulation(day: dict = day):
         """
-        Cria uma lista de decimais com valores aleatórios entre 50 e 100.
+        Cria uma lista de decimais com valores aleatórios entre 50 e 100 para serem usados como rendimentos.
         """
-        holidays = []
+        holidays: list = []
 
-        request = requests.get("https://brasilapi.com.br/api/feriados/v1/2023")
+        request = get("https://brasilapi.com.br/api/feriados/v1/2023")
 
-        ctx = json.loads(request.content)
+        ctx = loads(request.content)
         for x in range(0, len(ctx)):
             api_date = ctx[x]["date"]
             holidays.append(api_date)
 
         for x in range(1, feb_end.day - feb_start.day + 2):
-            week_d = datetime.date(2023, 2, x).weekday()
+            week_d: int = date(2023, 2, x).weekday()
 
             a = round(uniform(50, 100), 2)
 
             if week_d == 5 or week_d == 6:
                 day[f"day {x}"] = False
                 continue
-            elif str(datetime.date(2023, 2, x)) in holidays:
+            elif str(date(2023, 2, x)) in holidays:
                 day[f"day {x}"] = False
                 continue
             else:
@@ -49,24 +51,24 @@ def create_json():
 
     month_simulation()
 
-    day_dump = json.dumps(day)
-    day_loads = json.loads(day_dump)
+    day_dump = dumps(day)
+    day_loads = loads(day_dump)
 
     with open("problema-3.json", "w") as file:
-        json.dump(day_loads, file)
+        dump(day_loads, file)
         file.close()
 
     return print("Arquivo JSON criado com sucesso!")
 
 
-def data_unpacking():
+def data_unpacking() -> function:
     """
-    Desempacota arquivo JSON feito.
+    Desempacota e lê arquivo JSON criado pelo algoritmo.
     """
     data_values = []
 
     with open("problema-3.json", encoding="utf-8") as file:
-        json_data = json.load(file)
+        json_data = load(file)
 
     try:
         show_result = str(
@@ -82,9 +84,9 @@ def data_unpacking():
         if value:
             data_values.append(value)
 
-    def data_processing(data=data_values):
+    def data_processing(data: list = data_values) -> NoReturn:
         """
-        Processa os dados e entrega as respostas das questões
+        Processa os dados para ser entregue as respostas das questões.
         """
 
         # Primeira questão
@@ -108,7 +110,6 @@ def data_unpacking():
         print(
             f"Número de dias no mês em que o valor de faturamento diário foi superior à média mensal: {i}"
         )
-        return True
 
     return data_processing()
 
