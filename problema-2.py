@@ -24,15 +24,15 @@ def fibonacci(x: int) -> str:
         p2 = response
 
         if x == p1:
-            return print("O número informado pertence a sequência!")
+            return print("\nO número informado pertence a sequência!")
         elif x < p1:
-            return print("O número informado não pertence a sequência.")
+            return print("\nO número informado não pertence a sequência.")
 
 
 if __name__ == "__main__":
     try:
         numb = int(input("Que termo deseja encontrar: "))
     except ValueError as err:
-        print(f"Houve um erro ao receber a informação. \n--{err}")
+        print(f"\nHouve um erro ao receber a informação. \n--{err}")
 
     fibonacci(numb)
