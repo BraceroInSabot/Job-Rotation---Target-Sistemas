@@ -73,7 +73,7 @@ def create_json() -> str:
     return print("Arquivo JSON criado com sucesso!")
 
 
-def data_unpacking() -> function:
+def data_unpacking():
     """
     Desempacota e lê arquivo JSON criado pelo algoritmo.
     """
