@@ -39,10 +39,10 @@ def main() -> NoReturn:
         percentual.append(value)
 
     response = zip(state_name, percentual)
-    print("Resultado")
+    print(f"{'Resultado':-^100}\n")
     for state, value in dict(response).items():
         print(
-            f"{state} teve participação de {round(value, 2)}% dentro do valor total mensal da distribuidora."
+            f"{state} teve participação de {round(value, 2)}% dentro do valor total mensal da distribuidora.\n"
         )
 
 

@@ -4,7 +4,7 @@ from typing import NoReturn
 from datetime import datetime, date
 from requests import get
 from json import load, loads, dump, dumps
-
+from locale import setlocale, currency, LC_ALL
 
 """
 3) Dado um vetor que guarda o valor de faturamento diário de uma distribuidora, faça um programa, na linguagem que
@@ -66,7 +66,7 @@ def create_json() -> str:
     day_dump = dumps(day)
     day_loads = loads(day_dump)
 
-    with open("problema-3.json", "w") as file:
+    with open("dados-alternativos.json", "w") as file:
         dump(day_loads, file)
         file.close()
 
@@ -84,7 +84,7 @@ def data_unpacking():
 
     try:
         show_result = str(
-            input("Você deseja ver o os números de rendimento da empresa? s/n")
+            input("Você deseja ver o os números de rendimento da empresa? s/n\n")
         )
     except ValueError as err:
         print(err)
@@ -102,12 +102,13 @@ def data_unpacking():
         """
 
         # Primeira questão
+        setlocale(LC_ALL, "")
         print(
-            f"O menor valor de faturamento ocorrido em um dia do mês: R${str(min(data)).replace('.', ',')}"
+            f"O menor valor de faturamento ocorrido em um dia do mês: {str(currency(round(min(data), 2), grouping=True))}"
         )
         # Segunda questão
         print(
-            f"O maior valor de faturamento ocorrido em um dia do mês: R${str(max(data)).replace('.', ',')}"
+            f"O maior valor de faturamento ocorrido em um dia do mês: R${str(currency(round(max(data), 2), grouping=True))}"
         )
 
         # Terceira e última questão

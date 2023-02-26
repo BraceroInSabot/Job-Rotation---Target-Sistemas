@@ -18,18 +18,15 @@ def fibonacci(x: int) -> str:
     p1 = 1
     p2 = 1
 
-    if (x == 1) or (x == 2):
-        print(f"{x}, 1 ou 2 sempre terá o mesmo resultado")
-    else:
-        while True:
-            response = p2 + p1
-            p1 = p2
-            p2 = response
+    while True:
+        response = p2 + p1
+        p1 = p2
+        p2 = response
 
-            if x == p1:
-                return print("O número informado pertence a sequência")
-            elif x < p1:
-                return print("O número informado não pertence a sequência")
+        if x == p1:
+            return print("O número informado pertence a sequência!")
+        elif x < p1:
+            return print("O número informado não pertence a sequência.")
 
 
 if __name__ == "__main__":

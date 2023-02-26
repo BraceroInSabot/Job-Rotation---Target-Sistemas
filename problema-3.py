@@ -1,5 +1,6 @@
 from typing import NoReturn
 from json import load
+from locale import setlocale, currency, LC_ALL
 
 
 def data_unpacking():
@@ -20,12 +21,13 @@ def data_unpacking():
         """
 
         # Primeira questão
+        setlocale(LC_ALL, "")
         print(
-            f"O menor valor de faturamento ocorrido em um dia do mês: R${str(min(data)).replace('.', ',')}"
+            f"O menor valor de faturamento ocorrido em um dia do mês: {str(currency(round(min(data), 2), grouping=True))}"
         )
         # Segunda questão
         print(
-            f"O maior valor de faturamento ocorrido em um dia do mês: R${str(max(data)).replace('.', ',')}"
+            f"O maior valor de faturamento ocorrido em um dia do mês: R${str(currency(round(max(data), 2), grouping=True))}"
         )
 
         # Terceira e última questão
